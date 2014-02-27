@@ -1,5 +1,0 @@
-<FilesMatch "\.png$">
-  SetEnvIf REQUEST_URI "/([^/]+)$" FILENAME=$1
-  Header set Cache-Control "no-cache , no-store , must-revalidate , max-age=0"
-  Header set Set-Cookie %{FILENAME}e=%t;Max-Age=60
-</FilesMatch>

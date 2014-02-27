@@ -1,5 +1,9 @@
 #!!! Work in progress
-just put the .htaccess in the directory of wordpress-logo.png
-this htaccess put a special cookie
+New version using more complicate action cookie and javascript
+The plugin mechanism act on every form just test if function nbr_sourceOK exist to use it
+
+Actually it's in place on my contact form
 
 All disallow access go in trace_rejet
+
+TODO change the Salt mechanism - crypt the microtime
