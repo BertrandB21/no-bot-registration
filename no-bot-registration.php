@@ -36,10 +36,14 @@ if(!isset($_COOKIE[LOGO]) or (microtime(true)-$mt> 600) or !nbr_sourceOK())*/
 
 function nbr_sourceOK(){
   $ok=false;
-  if(isset($_COOKIE['nbrjs']) and isset($_POST[secretInput()])) {
-   $delaisC=abs(microtime(true)-$_COOKIE['nbrjs']);
-   $delaisM=$_POST[secretInput()]-$_COOKIE['nbrjs'];
-   if($delaisM >0 and $delaisM <10 and $delaisC < 900) $ok=true;
+  file_put_contents(__DIR__.'/trace_rejet',sprintf("Cookie=%s Input=%s %s %s\n",$_COOKIE[nbr_secretCookie()],$_POST[nbr_secretInput()],nbr_secretCookie(),nbr_secretInput()),FILE_APPEND);
+  if(isset($_COOKIE[nbr_secretCookie()]) and isset($_POST[nbr_secretInput()])) {
+   $mtc=nbr_microtimeDecrypt($_COOKIE[nbr_secretCookie()]);
+   $mtp=nbr_microtimeDecrypt($_POST[nbr_secretInput()]);
+   $delaisC=abs(microtime(true)-$mtc);
+   $delaisM=$mtp-$mtc;
+   if($delaisM >0 and $delaisM <30 and $delaisC < 900) $ok=true;
+  file_put_contents(__DIR__.'/trace_rejet',sprintf("Délais M=%f C=%f Cookie=%s Input=%s\n",$delaisM,$delaisC,$mtp,$mtc),FILE_APPEND);
   }
   return $ok;
 }
